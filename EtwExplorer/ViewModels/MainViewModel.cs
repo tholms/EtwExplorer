@@ -36,6 +36,7 @@ namespace EtwExplorer.ViewModels {
 			set => SetProperty(ref _providerName, value);
 		}
 
+
 		public MainViewModel(IUIServices ui, EtwManifest manifest = null) {
 			UI = ui;
 			Manifest = manifest;
@@ -55,7 +56,15 @@ namespace EtwExplorer.ViewModels {
 		private void AddTabs() {
 			if (Keywords == null) {
 				Tabs.Add(new SummaryTabViewModel(Manifest));
-				Tabs.Add(new EventsTabViewModel(Manifest));
+
+				var eventsTab = new EventsTabViewModel(Manifest);
+				eventsTab.NavigateToTaskRequested += OnNavigateToTaskRequested;
+				Tabs.Add(eventsTab);
+
+				var tasksTab = new TasksTabViewModel(Manifest);
+				tasksTab.DiffRequested += OnTemplateDiffRequested;
+				Tabs.Add(tasksTab);
+
 				Tabs.Add(new KeywordsTabViewModel(Manifest));
 				Tabs.Add(new StringsTabViewModel(Manifest));
 				Tabs.Add(new XmlTabViewModel(Manifest.Xml));
@@ -64,6 +73,24 @@ namespace EtwExplorer.ViewModels {
 				Tabs.Add(new KeywordsTabViewModel(Keywords));
 			}
 			SelectedTab = Tabs[0];
+		}
+
+		private void OnNavigateToTaskRequested(object sender, NavigateToTaskEventArgs e) {
+			// Find the Tasks tab
+			var tasksTab = Tabs.OfType<TasksTabViewModel>().FirstOrDefault();
+			if (tasksTab != null) {
+				// Switch to Tasks tab
+				SelectedTab = tasksTab;
+				// Select the task
+				tasksTab.SelectTask(e.TaskName);
+			}
+		}
+
+		private void OnTemplateDiffRequested(object sender, TemplateDiffRequestedEventArgs e) {
+			// Create a new template diff tab
+			var diffTab = new TemplateDiffTabViewModel(e.TaskName, e.Template1, e.Template2, e.Manifest);
+			Tabs.Add(diffTab);
+			SelectedTab = diffTab;
 		}
 
 		public ICommand ExitCommand => new DelegateCommand(() => Application.Current.Shutdown());
@@ -76,6 +103,14 @@ namespace EtwExplorer.ViewModels {
 		});
 
 		public ICommand CloseCommand => new DelegateCommand(DoClose);
+
+		public ICommand CloseTabCommand => new DelegateCommand<TabViewModelBase>(tab => {
+			if (tab != null && tab.IsCloseable) {
+				_tabs.Remove(tab);
+				if (SelectedTab == tab && _tabs.Count > 0)
+					SelectedTab = _tabs[0];
+			}
+		});
 
 		void DoClose() {
 			Manifest = null;
@@ -177,7 +212,6 @@ namespace EtwExplorer.ViewModels {
 					var win = new MainWindow { DataContext = vm };
 					win.Show();
 				}
-				
 			}
 			catch (Exception ex) {
 				UI.MessageBoxService.ShowMessage($"Error: {ex.Message}", Constants.AppTitle);

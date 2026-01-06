@@ -45,6 +45,9 @@
     <Reference Include="ControlzEx, Version=3.0.2.4, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\ControlzEx.3.0.2.4\lib\net462\ControlzEx.dll</HintPath>
     </Reference>
+    <Reference Include="DiffPlex">
+      <HintPath>..\packages\DiffPlex.1.7.2\lib\net40\DiffPlex.dll</HintPath>
+    </Reference>
     <Reference Include="Dia2Lib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.Diagnostics.Tracing.TraceEvent.2.0.66\lib\net45\Dia2Lib.dll</HintPath>
       <EmbedInteropTypes>True</EmbedInteropTypes>
@@ -99,6 +102,9 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Constants.cs" />
+    <Compile Include="ViewModels\EventDiffTabViewModel.cs" />
+    <Compile Include="ViewModels\EventItemViewModel.cs" />
+    <Compile Include="ViewModels\EventViewItemModel.cs" />
     <Compile Include="ViewModels\EtwEventViewModel.cs" />
     <Compile Include="ViewModels\EtwProviderSelectionViewModel.cs" />
     <Compile Include="ViewModels\EventsTabViewModel.cs" />
@@ -107,7 +113,12 @@
     <Compile Include="ViewModels\StringsTabViewModel.cs" />
     <Compile Include="ViewModels\SummaryTabViewModel.cs" />
     <Compile Include="ViewModels\TabViewModelBase.cs" />
+    <Compile Include="ViewModels\TasksTabViewModel.cs" />
+    <Compile Include="ViewModels\TemplateDiffTabViewModel.cs" />
     <Compile Include="ViewModels\XmlTabViewModel.cs" />
+    <Compile Include="Views\EventDiffTabView.xaml.cs">
+      <DependentUpon>EventDiffTabView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\EtwProviderSelectionDialog.xaml.cs">
       <DependentUpon>EtwProviderSelectionDialog.xaml</DependentUpon>
     </Compile>
@@ -125,6 +136,9 @@
     </Compile>
     <Compile Include="Views\SummaryTabView.xaml.cs">
       <DependentUpon>SummaryTabView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\TasksTabView.xaml.cs">
+      <DependentUpon>TasksTabView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\XmlTabView.xaml.cs">
       <DependentUpon>XmlTabView.xaml</DependentUpon>
@@ -149,6 +163,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="Views\EventDiffTabView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Views\EtwProviderSelectionDialog.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -170,6 +188,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Views\SummaryTabView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\TasksTabView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

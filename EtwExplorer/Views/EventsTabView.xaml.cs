@@ -21,5 +21,21 @@ namespace EtwExplorer.Views {
 		public EventsTabView() {
 			InitializeComponent();
 		}
+
+		private void GoToTask_Click(object sender, RoutedEventArgs e) {
+			var dataGrid = (DataGrid)((ContextMenu)((MenuItem)sender).Parent).PlacementTarget;
+			if (dataGrid.SelectedItem is ViewModels.EventViewItemModel eventItem) {
+				var viewModel = DataContext as ViewModels.EventsTabViewModel;
+				viewModel?.RaiseNavigateToTask(eventItem.Task);
+			}
+		}
+
+		private void DataGrid_MouseDoubleClick(object sender, MouseButtonEventArgs e) {
+			var dataGrid = sender as DataGrid;
+			if (dataGrid?.SelectedItem is ViewModels.EventViewItemModel eventItem) {
+				var viewModel = DataContext as ViewModels.EventsTabViewModel;
+				viewModel?.RaiseNavigateToTask(eventItem.Task);
+			}
+		}
 	}
 }

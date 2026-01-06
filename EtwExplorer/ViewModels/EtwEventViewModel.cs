@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace EtwExplorer.ViewModels {
 
-	sealed class EtwEventViewModel : BindableBase {
+	public sealed class EtwEventViewModel : BindableBase {
 		public EtwEvent Event { get; }
 		EtwManifest _manifest;
 

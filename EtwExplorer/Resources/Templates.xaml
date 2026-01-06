@@ -17,4 +17,13 @@
     <DataTemplate DataType="{x:Type vm:KeywordsTabViewModel}">
         <view:KeywordsTabView />
     </DataTemplate>
+    <DataTemplate DataType="{x:Type vm:EventDiffTabViewModel}">
+        <view:EventDiffTabView />
+    </DataTemplate>
+    <DataTemplate DataType="{x:Type vm:TasksTabViewModel}">
+        <view:TasksTabView />
+    </DataTemplate>
+    <DataTemplate DataType="{x:Type vm:TemplateDiffTabViewModel}">
+        <view:EventDiffTabView />
+    </DataTemplate>
 </ResourceDictionary>
