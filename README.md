@@ -5,4 +5,20 @@ Event Tracing for Windows ([ETW](https://docs.microsoft.com/en-us/windows/win32/
 
 ETW Explorer attempts to show these events with a simple GUI.
 
-![ETWExplorer](./etwexplorer2.PNG)
+![ETWExplorer](./images/EventsView.PNG)
+
+## Added Features
+
+This is a fork of zodiacon's EtwExplorer that adds Task version diffing.
+
+Tasks can be viewed as a list in the Tasks tab with side by side argument comparison:
+
+![TasksView](./images/TasksView.png)
+
+And tasks with multiple versions can be diff'd to view the raw template XML comparison:
+
+![DiffView](./images/DiffView.png)
+
+Additionally when browsing events, you can right click the event and select "Go to task" to naviate directly to the task comparison view:
+
+![GoToTask](./images/GoToTask.png)
